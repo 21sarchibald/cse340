@@ -1,6 +1,115 @@
+:root {
+  --heading-color: black;
+  --primary-background-color: white;
+  --accent-color-1: teal;
+}
+
 /******* Change Box Model ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+header a:visited {
+  color: var(--heading-color);
+}
+
+.siteName a {
+  font-size: 2rem;
+  text-decoration: none;
+  color: var(--heading-color);
+}
+
+#tools a {
+  text-decoration: none;
+  color: var(--heading-color);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 0px 10px 0px;
+  color: var(--primary-background-color);
+  background-color: var(--heading-color);
+}
+
+#delorean-banner {
+  position: relative;
+  max-width: 100%;
+}
+
+#delorean-banner span {
+  position: absolute;
+  background-color: rgba(255, 255, 255, .65);
+  color: var(--accent-color-1);
+  padding: 10px;
+}
+
+#delorean-banner img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+#delorean-banner ul {
+  list-style: none;
+  padding: 0px;
+}
+
+#delorean-banner #button-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#delorean-banner button {
+  width: 100px;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
+
+#delorean-reviews ul {
+  line-height: 2rem;
+}
+
+#delorean-upgrades {
+  display: grid;
+  grid-template-columns: 2;
+  grid-template-rows: 3;
+}
+
+#delorean-upgrades h3 {
+  grid-row: 1;
+  grid-column: 1/3;
+}
+
+#delorean-upgrades section {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+#delorean-upgrades span {
+  width: 100%;
+  background-color: var(--accent-color-1);
+  text-align: center;
+}
+
+#flame-decals {
+  grid-column: 2;
+}
+
+#hub-caps {
+  grid-column: 2;
 }
