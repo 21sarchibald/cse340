@@ -47,7 +47,7 @@ nav ul {
   max-width: 100%;
 }
 
-#delorean-banner span {
+#delorean-banner div {
   position: absolute;
   background-color: rgba(255, 255, 255, .75);
   color: var(--accent-text-color);
@@ -163,7 +163,7 @@ main h2 {
   text-align: center;
 }
 
-#delorean-banner span {
+#delorean-banner div {
   width: 200px;
   
 }
