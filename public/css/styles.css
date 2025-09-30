@@ -144,7 +144,7 @@ body {
   margin-right: auto;
 }
 
-main main {
+main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 4fr 5fr;
