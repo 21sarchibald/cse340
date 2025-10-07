@@ -38,8 +38,11 @@ nav ul {
   justify-content: space-evenly;
   padding: 10px 0px 10px 0px;
   margin: 10px;
-  color: var(--primary-background-color);
   background-color: var(--heading-color);
+  a {
+    color: var(--primary-background-color);
+    text-decoration: none;
+  }
 }
 
 #delorean-banner {
