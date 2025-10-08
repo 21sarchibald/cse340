@@ -1,0 +1,14 @@
+<!-- Replace h1 tag with title of page (if the title exists) -->
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<!-- Allows for message display in the future if needed.
+To display a message, replace the "#" symbol  with this the
+"unescaped mark" (-) -->
+<%# messages() %>
+
+<!-- Displays content -->
+<%- grid %>
