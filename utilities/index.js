@@ -72,8 +72,9 @@ Util.buildDetailView = async function(data){
         <img src="${product.inv_image}" id="product-detail-img">
         <div id="product-detail-details">
           <h2>${product.inv_make} ${product.inv_model} Details</h2>
-          <h3>Price: ${product.inv_price}</h3>
-          <h3>Description: ${product.inv_description}</h3>
+          <h3>Price: $${product.inv_price}</h3>
+          <h3>Description: </h3>
+          <p id="product-description">${product.inv_description}</p>
           <h3>Color: ${product.inv_color}</h3>
           <h3>Miles: ${product.inv_miles}</h3>
         </div>
