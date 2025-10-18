@@ -61,8 +61,8 @@ Util.buildClassificationGrid = async function(data){
 * Build the detail view HTML
 * ************************************ */
 Util.buildDetailView = async function(data){
-  product = data[0]
-  console.log(product);
+  product = data[0];
+
     let view
       view = `
       <h1 id="product-detail-header">
