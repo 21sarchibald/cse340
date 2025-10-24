@@ -2,6 +2,13 @@
 
 <p><%- messages() %></p> 
 
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
 
 <form action="/account/register" method="post" class="form" id="registration-form">
     <div class="form-inputs">
@@ -10,9 +17,10 @@
         <label for="account_lastname">Last Name:</label>
         <input name="account_lastname" type="text" required>
         <label for="account_email">Email:</label>
-        <input name="account_email" type="email" required>
+        <input name="account_email" type="email" required placeholder="Please enter a valid email address.">
         <label for="account_password">Password:</label>
-        <input name="account_password" type="text" required>
+        <input name="account_password" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+        <div>Passwords must be at least 12 characters, one must be a number, one must be a lowercase letter, one must be a capital letter, and one must be a non-alphanumeric character.</div>
 </div>
     <button type="submit">REGISTER</button>
 </form>
