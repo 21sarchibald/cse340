@@ -38,5 +38,17 @@ invCont.buildByVehicleId = async function (req, res, next) {
   })
 }
 
+/* ***************************
+ *  Build add classification view
+ * ************************** */
+invCont.buildAddClassification = async function (req, res, next) {
+  console.log("build function reacted");
+  let nav = await utilities.getNav();
+  res.render("./inventory/add-classification", {
+    title: "Add Classification",
+    nav,
+    errors: null,
+  })
+}
 
 module.exports = invCont

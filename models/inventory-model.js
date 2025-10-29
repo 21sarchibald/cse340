@@ -42,4 +42,16 @@ async function getDetailsByProductId(vehicle_id) {
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByProductId};
+/* *****************************
+*   Add New Classification
+* *************************** */
+async function addClassification(classification_name) {
+  try {
+    const sql = "INSERT into CLASSIFICATIONS (classification_name) VALUES ($1)"
+    return await pool.query(sql, [classification_name])
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByProductId, addClassification};
