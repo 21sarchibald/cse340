@@ -76,6 +76,7 @@ if (classificationResult) {
     "notice",
     `Classification ${classification_name} has been added.`
   )
+  nav = await utilities.getNav();
   res.status(201).render("./inventory/add-classification", {
     title: "Add Classification",
     nav,

@@ -54,4 +54,17 @@ async function addClassification(classification_name) {
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByProductId, addClassification};
+/* **********************
+ *   Check for existing classification name
+ * ********************* */
+async function checkExistingClassification(classification_name){
+  try {
+    const sql = "SELECT * FROM classification WHERE classification_name = $1"
+    const email = await pool.query(sql, [classification_name])
+    return email.rowCount
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByProductId, addClassification, checkExistingClassification};
