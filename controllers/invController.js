@@ -51,4 +51,44 @@ invCont.buildAddClassification = async function (req, res, next) {
   })
 }
 
+  /* ****************************************
+*  Process Registration
+* *************************************** */
+invCont.addClassification = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  const { classification_name } = req.body
+
+//   try {
+//   // regular password and cost (salt is generated automatically)
+//   hashedPassword = await bcrypt.hashSync(account_password, 10)
+//   } catch (error) {
+//   req.flash("notice", 'Sorry, there was an error processing the registration.')
+//   res.status(500).render("account/register", {
+//     title: "Registration",
+//     nav,
+//     errors: null,
+//   })
+// }
+const classificationResult = await invModel.addClassification(classification_name)
+
+if (classificationResult) {
+  req.flash(
+    "notice",
+    `Classification ${classification_name} has been added.`
+  )
+  res.status(201).render("./inventory/add-classification", {
+    title: "Add Classification",
+    nav,
+    errors: null
+  });
+} else {
+  req.flash("notice", "Sorry, that classification could not be added.")
+  res.status(501).render("./inventory/add-classification", {
+    title: "Add Classification",
+    nav,
+  })
+}
+}
+
+
 module.exports = invCont

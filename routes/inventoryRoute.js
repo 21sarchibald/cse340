@@ -14,6 +14,6 @@ router.get("/detail/:vehicleId", utilities.handleErrors(invController.buildByVeh
 router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
 
 // Route to create new inventory classification
-router.post("/add-classification")
+router.post("/add-classification", utilities.handleErrors(invController.addClassification))
 
 module.exports = router;

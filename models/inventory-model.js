@@ -47,7 +47,7 @@ async function getDetailsByProductId(vehicle_id) {
 * *************************** */
 async function addClassification(classification_name) {
   try {
-    const sql = "INSERT into CLASSIFICATIONS (classification_name) VALUES ($1)"
+    const sql = "INSERT into CLASSIFICATION (classification_name) VALUES ($1)"
     return await pool.query(sql, [classification_name])
   } catch (error) {
     return error.message
