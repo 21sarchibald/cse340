@@ -80,8 +80,9 @@ if (classificationResult) {
     `Classification ${classification_name} has been added.`
   )
   nav = await utilities.getNav();
-  res.status(201).render("./inventory/add-classification", {
-    title: "Add Classification",
+  // Navigate back to the management view.
+  res.status(201).render("./inventory/management", {
+    title: "Management",
     nav,
     errors: null
   });
@@ -133,15 +134,15 @@ const inventoryResult = await invModel.addInventory(
 if (inventoryResult) {
 req.flash(
   "notice",
-  `Inventory ${inv_year} ${inv_model} ${inv_make} has been added to inventory.`
+  `${inv_year} ${inv_model} ${inv_make} has been added to inventory.`
 )
 nav = await utilities.getNav();
-// Change this to navigate to inventory page.
-res.status(201).render("./inventory/add-inventory", {
-  title: "Add Inventory",
-  nav,
-  errors: null
-});
+  // Navigate back to the management view.
+  res.status(201).render("./inventory/management", {
+    title: "Management",
+    nav,
+    errors: null
+  });
 } else {
 req.flash("notice", "Sorry, that inventory could not be added.")
 res.status(501).render("./inventory/add-inventory", {
