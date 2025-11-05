@@ -39,6 +39,20 @@ invCont.buildByVehicleId = async function (req, res, next) {
 }
 
 /* ***************************
+ *  Build management view
+ * ************************** */
+invCont.buildManagement = async function (req, res, next) {
+  console.log("build function reacted");
+  let nav = await utilities.getNav();
+  res.render("./inventory/management", {
+    title: "Management",
+    nav,
+    errors: null,
+  })
+}
+
+
+/* ***************************
  *  Build add classification view
  * ************************** */
 invCont.buildAddClassification = async function (req, res, next) {
