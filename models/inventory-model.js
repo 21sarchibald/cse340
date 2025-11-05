@@ -55,8 +55,8 @@ async function addClassification(classification_name) {
 }
 
 /* **********************
- *   Check for existing classification name
- * ********************* */
+*   Check for existing classification name
+* ********************* */
 async function checkExistingClassification(classification_name){
   try {
     const sql = "SELECT * FROM classification WHERE classification_name = $1"
@@ -67,4 +67,16 @@ async function checkExistingClassification(classification_name){
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByProductId, addClassification, checkExistingClassification};
+/* *****************************
+*   Add New Inventory
+* *************************** */
+async function addInventory(classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color) {
+  try {
+    const sql = "INSERT into INVENTORY (classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)"
+    return await pool.query(sql, [classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color])
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByProductId, addClassification, checkExistingClassification, addInventory};

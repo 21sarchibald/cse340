@@ -57,18 +57,7 @@ invCont.buildAddClassification = async function (req, res, next) {
 invCont.addClassification = async function (req, res, next) {
   let nav = await utilities.getNav()
   const { classification_name } = req.body
-
-//   try {
-//   // regular password and cost (salt is generated automatically)
-//   hashedPassword = await bcrypt.hashSync(account_password, 10)
-//   } catch (error) {
-//   req.flash("notice", 'Sorry, there was an error processing the registration.')
-//   res.status(500).render("account/register", {
-//     title: "Registration",
-//     nav,
-//     errors: null,
-//   })
-// }
+  
 const classificationResult = await invModel.addClassification(classification_name)
 
 if (classificationResult) {
@@ -92,8 +81,8 @@ if (classificationResult) {
 }
 
 /* ***************************
- *  Build add inventory view
- * ************************** */
+*  Build add inventory view
+* ************************** */
 invCont.buildAddInventory = async function (req, res, next) {
   console.log("build function reacted");
   let nav = await utilities.getNav();
@@ -106,4 +95,45 @@ invCont.buildAddInventory = async function (req, res, next) {
   })
 }
 
+/* ****************************************
+*  Process Add Inventory
+* *************************************** */
+invCont.addInventory = async function (req, res, next) {
+  console.log("Add inventory button works");
+let nav = await utilities.getNav()
+const { classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
+
+const inventoryResult = await invModel.addInventory(
+  classification_id,
+  inv_make,
+  inv_model,
+  inv_year,
+  inv_description, 
+  inv_image, 
+  inv_thumbnail, 
+  inv_price, 
+  inv_miles, 
+  inv_color
+)
+
+if (inventoryResult) {
+req.flash(
+  "notice",
+  `Inventory ${inv_year} ${inv_model} ${inv_make} has been added to inventory.`
+)
+nav = await utilities.getNav();
+// Change this to navigate to inventory page.
+res.status(201).render("./inventory/add-inventory", {
+  title: "Add Inventory",
+  nav,
+  errors: null
+});
+} else {
+req.flash("notice", "Sorry, that inventory could not be added.")
+res.status(501).render("./inventory/add-inventory", {
+  title: "Add Inventory",
+  nav,
+})
+}
+}
 module.exports = invCont
