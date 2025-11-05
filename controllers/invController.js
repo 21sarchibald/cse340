@@ -52,7 +52,7 @@ invCont.buildAddClassification = async function (req, res, next) {
 }
 
   /* ****************************************
-*  Process Registration
+*  Process Add Classification
 * *************************************** */
 invCont.addClassification = async function (req, res, next) {
   let nav = await utilities.getNav()
@@ -91,5 +91,19 @@ if (classificationResult) {
 }
 }
 
+/* ***************************
+ *  Build add inventory view
+ * ************************** */
+invCont.buildAddInventory = async function (req, res, next) {
+  console.log("build function reacted");
+  let nav = await utilities.getNav();
+  let classificationList = await utilities.buildClassificationList();
+  res.render("./inventory/add-inventory", {
+    title: "Add Inventory",
+    nav,
+    classificationList,
+    errors: null,
+  })
+}
 
 module.exports = invCont
