@@ -81,11 +81,7 @@ if (classificationResult) {
   )
   nav = await utilities.getNav();
   // Navigate back to the management view.
-  res.status(201).render("./inventory/management", {
-    title: "Management",
-    nav,
-    errors: null
-  });
+  res.redirect("/inv/management");
 } else {
   req.flash("notice", "Sorry, that classification could not be added.")
   res.status(501).render("./inventory/add-classification", {
@@ -138,11 +134,7 @@ req.flash(
 )
 nav = await utilities.getNav();
   // Navigate back to the management view.
-  res.status(201).render("./inventory/management", {
-    title: "Management",
-    nav,
-    errors: null
-  });
+  res.redirect("/inv/management");
 } else {
 req.flash("notice", "Sorry, that inventory could not be added.")
 res.status(501).render("./inventory/add-inventory", {
