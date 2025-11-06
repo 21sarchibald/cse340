@@ -87,14 +87,12 @@ const utilities = require("./")
      // image is required and must be string
      body("inv_image")
      .trim()
-     .escape()
      .notEmpty()
      .isLength({ min: 1 })
      .withMessage("Please provide inventory image."), // on error this message is sent.
      // thumbnail is required and must be string
      body("inv_thumbnail")
      .trim()
-     .escape()
      .notEmpty()
      .isLength({ min: 1 })
      .withMessage("Please provide inventory thumbnail."), // on error this message is sent.
