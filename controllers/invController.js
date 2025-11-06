@@ -136,10 +136,12 @@ nav = await utilities.getNav();
   // Navigate back to the management view.
   res.redirect("/inv/management");
 } else {
+classificationList = utilities.buildClassificationList(classification_id);
 req.flash("notice", "Sorry, that inventory could not be added.")
 res.status(501).render("./inventory/add-inventory", {
   title: "Add Inventory",
   nav,
+  classificationList,
 })
 }
 }

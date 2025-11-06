@@ -52,6 +52,9 @@ const utilities = require("./")
  
  validate.newInventoryRules = () => {
    return [
+     body("classification_id")
+     .notEmpty()
+     .withMessage("Please select a classification."), // on error this message is sent.
      // make is required and must be string
      body("inv_make")
      .trim()
@@ -73,7 +76,7 @@ const utilities = require("./")
      .escape()
      .notEmpty()
      .isLength({ min: 4, max: 4 })
-     .withMessage("Please provide inventory year."), // on error this message is sent.
+     .withMessage("Please provide inventory year in requested format."), // on error this message is sent.
      // description is required and must be string
      body("inv_description")
      .trim()
@@ -102,7 +105,7 @@ const utilities = require("./")
      .escape()
      .notEmpty()
      .isLength({ min: 1 })
-     .withMessage("Please provide inventory price."), // on error this message is sent.
+     .withMessage("Please provide numeric inventory price."), // on error this message is sent.
      // miles is required and must be a number
      body("inv_miles")
      .isNumeric()
@@ -110,7 +113,7 @@ const utilities = require("./")
      .escape()
      .notEmpty()
      .isLength({ min: 1 })
-     .withMessage("Please provide inventory miles."), // on error this message is sent.
+     .withMessage("Please provide numeric inventory miles."), // on error this message is sent.
      // color is required and must be string
      body("inv_color")
      .trim()
@@ -130,11 +133,13 @@ const utilities = require("./")
    let errors = []
    errors = validationResult(req)
    if (!errors.isEmpty()) {
-     let nav = await utilities.getNav()
-     res.render("inventory/add-classification", {
+     let nav = await utilities.getNav();
+     let classificationList = await utilities.buildClassificationList(classification_id);
+     res.render("inventory/add-inventory", {
        errors,
        title: "Add Inventory",
        nav,
+       classificationList,
        classification_id,
        inv_make,
        inv_model,

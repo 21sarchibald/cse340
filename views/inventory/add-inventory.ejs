@@ -15,23 +15,23 @@
         <label for="classification_id">Classification:</label>
         <%- classificationList %>
         <label for="inv_make">Make:</label>
-        <input type="text" name="inv_make" id="invMake" required>
+        <input type="text" name="inv_make" id="invMake" required value="<%= locals.inv_make %>">
         <label for="inv_model">Model:</label>
-        <input type="text" name="inv_model" id="invModel" required>
+        <input type="text" name="inv_model" id="invModel" required value="<%= locals.inv_model %>">
         <label for="inv_year">Year: make the input character 4</label>
-        <input type="text" name="inv_year" id="invYear" required pattern="^\d{4}$" placeholder="Enter a 4-digit year (ex: 2025)">
+        <input type="text" name="inv_year" id="invYear" required pattern="^\d{4}$" placeholder="Enter a 4-digit year (ex: 2025)" value="<%= locals.inv_year %>">
         <label for="inv_description">Description:</label>
-        <input type="text" name="inv_description" id="invDescription" required>
+        <input type="text" name="inv_description" id="invDescription" required value="<%= locals.inv_description %>">
         <label for="inv_image">Image:</label>
-        <input type="text" name="inv_image" id="invImage" required>
+        <input type="text" name="inv_image" id="invImage" required value="<%= locals.inv_image %>">
         <label for="inv_thumbnail">Thumbnail:</label>
-        <input type="text" name="inv_thumbnail" id="invThumbnail" required>
+        <input type="text" name="inv_thumbnail" id="invThumbnail" required value="<%= locals.inv_thumbnail %>">
         <label for="inv_price">Price:</label>
-        <input type="number" name="inv_price" id="invPrice" required pattern="^(?!.*\s)[a-zA-Z0-9]+$">
+        <input type="number" name="inv_price" id="invPrice" required pattern="^(?!.*\s)[a-zA-Z0-9]+$" value="<%= locals.inv_price %>">
         <label for="inv_miles">Miles:</label>
-        <input type="number" name="inv_miles" id="invMiles" required pattern="^(?!.*\s)[a-zA-Z0-9]+$">
+        <input type="number" name="inv_miles" id="invMiles" required pattern="^(?!.*\s)[a-zA-Z0-9]+$" value="<%= locals.inv_miles %>">
         <label for="inv_color">Color:</label>
-        <input type="text" name="inv_color" id="invColor" required>
+        <input type="text" name="inv_color" id="invColor" required value="<%= locals.inv_color %>">
 </div>
     <button type="submit">Add New Inventory</button>
 </form>
