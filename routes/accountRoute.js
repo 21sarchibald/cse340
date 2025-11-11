@@ -11,6 +11,9 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin));
 // Route to build registration page
 router.get("/registration", utilities.handleErrors(accountController.buildRegistration));
 
+// Route to build management page
+router.get("/management", utilities.handleErrors(accountController.buildManagement));
+
 // Process registration data
 router.post(
     '/register', 
@@ -24,8 +27,6 @@ router.post(
     "/login",
     regValidate.loginRules(),
     regValidate.checkLoginData,
-    (req, res) => {
-      res.status(200).send('login process')
-    }
+    utilities.handleErrors(accountController.accountLogin)
   );
 module.exports = router;

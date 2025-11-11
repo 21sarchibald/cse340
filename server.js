@@ -17,6 +17,8 @@ const utilities = require("./utilities/")
 const session = require("express-session")
 const pool = require('./database/')
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser");
+const { cookie } = require("express-validator")
 
 /* ***********************
  * Middleware
@@ -62,6 +64,9 @@ app.use("/inv", inventoryRoute)
 
 // Account routes
 app.use("/account", accountRoute)
+
+// Cookie parser route
+app.use(cookieParser())
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
