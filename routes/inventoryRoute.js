@@ -14,6 +14,9 @@ router.get("/detail/:vehicleId", utilities.handleErrors(invController.buildByVeh
 // Route to build management page
 router.get("/management", utilities.handleErrors(invController.buildManagement));
 
+// Route to build inventory table based on classification_id
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
 // Route to build add-classification page
 router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification));
 

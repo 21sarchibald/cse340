@@ -213,6 +213,26 @@ nav ul a {
   text-align: center;
 }
 
+/* Inventory Management Page */
+#inv-management-div h2 {
+  /* text-align: center; */
+  padding-bottom: 5px;
+  margin-left: 0px;
+  border-bottom: solid var(--accent-color-1);
+}
+
+#inv-management-div #classificationList {
+  margin-bottom: 10px;
+}
+
+#inv-management-div td {
+  padding: 5px;
+}
+
+#inv-management-div th {
+  text-align: left;
+}
+
 @media screen and (min-width: 700px) {
   
   html {
