@@ -36,7 +36,7 @@ async function buildRegistration(req, res, next) {
 async function buildManagement (req, res, next) {
   console.log("build function reacted");
   let nav = await utilities.getNav();
-  res.render("./account/management", {
+  res.render("account/management", {
     title: "Account Management",
     nav,
     errors: null,
@@ -116,7 +116,7 @@ async function accountLogin(req, res) {
       } else {
         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
       }
-      return res.redirect("/account/management")
+      return res.redirect("/account/")
     }
     else {
       req.flash("message notice", "Please check your credentials and try again.")

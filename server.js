@@ -44,6 +44,11 @@ app.use(function(req, res, next){
   next()
 })
 
+// Cookie parser route - had to move up here for error.
+app.use(cookieParser())
+
+app.use(utilities.checkJWTToken)
+
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -65,8 +70,6 @@ app.use("/inv", inventoryRoute)
 // Account routes
 app.use("/account", accountRoute)
 
-// Cookie parser route
-app.use(cookieParser())
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
