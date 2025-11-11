@@ -149,8 +149,8 @@ res.status(501).render("./inventory/add-inventory", {
 }
 
 /* ***************************
- *  Return Inventory by Classification As JSON
- * ************************** */
+*  Return Inventory by Classification As JSON
+* ************************** */
 invCont.getInventoryJSON = async (req, res, next) => {
   const classification_id = parseInt(req.params.classification_id)
   const invData = await invModel.getInventoryByClassificationId(classification_id)
@@ -189,6 +189,61 @@ invCont.buildEditInventory = async function (req, res, next) {
     inv_miles: inventoryData.inv_miles, 
     inv_color: inventoryData.inv_color
   })
+}
+
+/* ****************************************
+*  Process Edit Inventory
+* *************************************** */
+invCont.editInventory = async function (req, res, next) {
+  console.log("Add inventory button works");
+let nav = await utilities.getNav()
+const { classification_id, inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
+
+const editResult = await invModel.editInventory(
+  classification_id,
+  inv_id,
+  inv_make,
+  inv_model,
+  inv_year,
+  inv_description, 
+  inv_image, 
+  inv_thumbnail, 
+  inv_price, 
+  inv_miles, 
+  inv_color
+)
+
+if (editResult) {
+  const inventoryName = editResult.inv_year + " " + editResult.inv_make + " " + editResult.inv_model
+req.flash(
+  "notice",
+  `The ${inventoryName} was successfully updated.`
+)
+nav = await utilities.getNav();
+  // Navigate back to the management view.
+  res.redirect("/inv/management");
+} else {
+const classificationList = await utilities.buildClassificationList(classification_id);
+req.flash("notice", `Sorry, the edit failed.`)
+const inventoryName = `${inv_make} ${inv_model}`;
+res.status(501).render("./inventory/edit-inventory", {
+  title: "Edit " + inventoryName,
+  nav,
+  classificationList,
+  errors: null,
+  classification_id,
+  inv_id,
+  inv_make,
+  inv_model,
+  inv_year,
+  inv_description, 
+  inv_image, 
+  inv_thumbnail, 
+  inv_price, 
+  inv_miles, 
+  inv_color
+})
+}
 }
 
 module.exports = invCont
