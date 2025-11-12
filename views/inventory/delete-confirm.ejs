@@ -1,0 +1,29 @@
+<h1><%- title %></h1>
+
+<p><%- messages() %></p> 
+
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+<form action="/inv/delete-confirm" method="post" class="form" id="deleteForm">
+    <div class="form-inputs">
+        <label for="inv_make">Make:</label>
+        <input type="text" name="inv_make" id="invMake" required readonly value="<%= locals.inv_make %>">
+        <label for="inv_model">Model:</label>
+        <input type="text" name="inv_model" id="invModel" required readonly value="<%= locals.inv_model %>">
+        <label for="inv_year">Year:</label>
+        <input type="text" name="inv_year" id="invYear" required readonly pattern="^\d{4}$" placeholder="Enter a 4-digit year (ex: 2025)" value="<%= locals.inv_year %>">
+        <label for="inv_price">Price:</label>
+        <input type="number" name="inv_price" id="invPrice" required readonly pattern="^(?!.*\s)[a-zA-Z0-9]+$" value="<%= locals.inv_price %>">
+</div>
+    <button type="submit" name="submit">Delete Inventory</button>
+    <p>WARNING: This deletion is PERMANENT.</p>
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+</form>

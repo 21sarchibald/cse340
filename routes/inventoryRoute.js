@@ -20,12 +20,24 @@ router.get("/getInventory/:classification_id", utilities.handleErrors(invControl
 // Route to build edit-inventory page
 router.get("/edit-inventory/:inv_id", utilities.handleErrors(invController.buildEditInventory));
 
+
 // Route to edit inventory
 router.post(
     "/edit-inventory",
     invValidate.newInventoryRules(),
     invValidate.checkEditData,
     utilities.handleErrors(invController.editInventory))
+    
+// Route to build delete inventory page
+router.get("/delete-confirm/:inv_id", utilities.handleErrors(invController.buildDeleteInventory));
+    
+// Route to edit inventory
+router.post(
+    "/delete-confirm",
+    // invValidate.newInventoryRules(),
+    // invValidate.checkEditData,
+    utilities.handleErrors(invController.deleteInventory))
+
 
 // Route to build add-classification page
 router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification));
