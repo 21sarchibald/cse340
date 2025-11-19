@@ -127,5 +127,4 @@ const utilities = require("./")
    }
    next()
  }
-  
   module.exports = validate
