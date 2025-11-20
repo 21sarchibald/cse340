@@ -12,35 +12,44 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 router.get("/detail/:vehicleId", utilities.handleErrors(invController.buildByVehicleId));
 
 // Route to build management page
-router.get("/management", utilities.handleErrors(invController.buildManagement));
+router.get("/management", 
+    utilities.checkJWTToken,
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildManagement));
 
 // Route to build inventory table based on classification_id
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 // Route to build edit-inventory page
-router.get("/edit-inventory/:inv_id", utilities.handleErrors(invController.buildEditInventory));
-
+router.get("/edit-inventory/:inv_id", 
+    utilities.checkJWTToken,
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildEditInventory));
 
 // Route to edit inventory
 router.post(
     "/edit-inventory",
     invValidate.newInventoryRules(),
     invValidate.checkEditData,
-    utilities.handleErrors(invController.editInventory))
+    utilities.handleErrors(invController.editInventory));
     
 // Route to build delete inventory page
-router.get("/delete-confirm/:inv_id", utilities.handleErrors(invController.buildDeleteInventory));
+router.get("/delete-confirm/:inv_id",
+    utilities.checkJWTToken,
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildDeleteInventory));
     
 // Route to edit inventory
 router.post(
     "/delete-confirm",
-    // invValidate.newInventoryRules(),
-    // invValidate.checkEditData,
     utilities.handleErrors(invController.deleteInventory))
 
 
 // Route to build add-classification page
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification));
+router.get("/add-classification", 
+    utilities.checkJWTToken,
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildAddClassification));
 
 // Route to create new inventory classification
 router.post(
@@ -50,7 +59,10 @@ router.post(
     utilities.handleErrors(invController.addClassification))
 
 // Route to build add-inventory page
-router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
+router.get("/add-inventory", 
+    utilities.checkJWTToken,
+    utilities.checkAccountType,
+    utilities.handleErrors(invController.buildAddInventory));
 
 // Route to add new inventory
 router.post(
