@@ -43,6 +43,24 @@ async function buildManagement (req, res, next) {
   })
 }
 
+/* ****************************************
+*  Build edit account view
+* *************************************** */
+async function buildEditAccount(req, res, next) {
+  let nav = await utilities.getNav()
+  const accountData = res.locals.accountData
+  res.render("account/edit-account", {
+    title: "Edit Account Information",
+    nav,
+    // message: req.flash(),
+    account_id: accountData.account_id,
+    account_firstname: accountData.account_firstname,
+    account_lastname: accountData.account_lastname,
+    account_email: accountData.account_email,
+    errors: null,
+  })
+}
+
   /* ****************************************
 *  Process Registration
 * *************************************** */
@@ -132,5 +150,48 @@ async function accountLogin(req, res) {
   }
 }
 
+  /* ****************************************
+*  Process Edit Account Request
+* *************************************** */
+async function editAccountInfo(req, res) {
+  let nav = await utilities.getNav()
+  const { account_firstname, account_lastname, account_email, account_id} = req.body
+
+  const regResult = await accountModel.editAccountInfo(
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_id
+  )
+
+  if (regResult) {
+    const updatedAccount = await accountModel.getAccountById(account_id)
+    delete updatedAccount.account_password
+    
+    const accessToken = jwt.sign(updatedAccount, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+      if(process.env.NODE_ENV === 'development') {
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+      } else {
+        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+      }
+
+
+    res.locals.accountData = updatedAccount
+    req.flash(
+      "notice",
+      `Your account was successfully updated!`
+    )
+    return res.redirect("/account/");
+
+  } else {
+    req.flash("notice", "Sorry, your account could not be updated.")
+    res.status(501).render("/account/edit-account", {
+      title: "Edit Account Info",
+      nav,
+    })
+  }
+}
+
+
   
-  module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildManagement }
+  module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildManagement, buildEditAccount, editAccountInfo }

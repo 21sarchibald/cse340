@@ -150,7 +150,7 @@ Util.checkLogin = (req, res, next) => {
  *  Check Account Type
  * ************************************ */
 Util.checkAccountType = (req, res, next) => {
-  const accountType = res.locals.accountData.accountType;
+  const accountType = res.locals.accountData.account_type;
   console.log(accountType);
   if (accountType == 'Employee' || accountType == 'Admin') {
     next()

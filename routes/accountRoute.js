@@ -14,6 +14,20 @@ router.get("/registration", utilities.handleErrors(accountController.buildRegist
 // Route to build management page
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement));
 
+// Route to build edit account page
+router.get("/edit-account", utilities.handleErrors(accountController.buildEditAccount));
+
+// Route to edit account information
+router.post(
+  "/edit-account",
+  (req, res, next) => {
+    req.accountData = res.locals.accountData;
+    next();
+  },
+  regValidate.editAccountInfoRules(),
+  regValidate.checkEditData,
+  utilities.handleErrors(accountController.editAccountInfo));
+
 // Process registration data
 router.post(
     '/register', 

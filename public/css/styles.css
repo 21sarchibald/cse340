@@ -233,6 +233,29 @@ nav ul a {
   text-align: left;
 }
 
+#account-management-title {
+  padding: 0px;
+  margin: 20px 0px;
+  width: 100%;
+}
+
+#account-management-div {
+  grid-column: 1;
+  grid-row: 2;
+  margin-top: 20px;
+}
+
+#account-management-div h2 {
+  margin: 20px 0px 0px 0px;
+  padding: 0px;
+}
+
+#account-management-div p {
+  margin: 10px 0px 0px 5px;
+  padding: 0px;
+}
+
+
 @media screen and (min-width: 700px) {
   
   html {
