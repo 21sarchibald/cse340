@@ -8,6 +8,9 @@ const regValidate = require('../utilities/account-validation')
 // Route to build login page
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
+// Route to build logout page
+router.get("/logout", utilities.handleErrors(accountController.buildLogout));
+
 // Route to build registration page
 router.get("/registration", utilities.handleErrors(accountController.buildRegistration));
 
@@ -28,6 +31,12 @@ router.post(
   regValidate.checkEditData,
   utilities.handleErrors(accountController.editAccountInfo));
 
+router.post(
+  "/change-password",
+  regValidate.changePasswordRules(),
+  regValidate.checkPasswordData,
+  utilities.handleErrors(accountController.changePassword));
+
 // Process registration data
 router.post(
     '/register', 
@@ -43,4 +52,16 @@ router.post(
     regValidate.checkLoginData,
     utilities.handleErrors(accountController.accountLogin)
   );
+
+// Process the logout attempt
+router.post(
+    "/logout",
+    (req, res, next) => {
+      req.accountData = res.locals.accountData;
+      next();
+    },
+    utilities.handleErrors(accountController.accountLogout)
+  );
+
+
 module.exports = router;

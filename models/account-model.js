@@ -54,6 +54,21 @@ async function editAccountInfo(account_firstname, account_lastname, account_emai
   }
 
 /* *****************************
+*   Change password
+* *************************** */
+async function changePassword(account_password, account_id){
+
+    try {
+      const sql = "UPDATE account SET account_password = $1 WHERE account_id = $2 RETURNING *"
+      const data = await pool.query(sql, [account_password, account_id])
+      return data.rows[0];
+    } catch (error) {
+      console.error("model error: " + error);
+      return error.message
+    }
+  }
+
+/* *****************************
 * Return account data using account_id
 * ***************************** */
 async function getAccountById (account_id) {
@@ -69,4 +84,4 @@ async function getAccountById (account_id) {
      }
    }
     
-    module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, editAccountInfo, getAccountById };
+    module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, editAccountInfo, getAccountById, changePassword };

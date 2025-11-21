@@ -18,6 +18,19 @@ async function buildLogin(req, res, next) {
   }
 
 /* ****************************************
+*  Deliver logout view
+* *************************************** */
+async function buildLogout(req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("account/logout", {
+      title: "Logout",
+      nav,
+      // message: req.flash(),
+      errors: null,
+    })
+  }
+
+/* ****************************************
 *  Deliver registration view
 * *************************************** */
 async function buildRegistration(req, res, next) {
@@ -150,6 +163,31 @@ async function accountLogin(req, res) {
   }
 }
 
+/* ****************************************
+ *  Process logout request
+ * ************************************ */
+async function accountLogout(req, res) {
+  let nav = await utilities.getNav()
+
+  try {
+
+    res.clearCookie('jwt');
+    if(process.env.NODE_ENV === 'development') {
+      res.clearCookie("jwt",
+        { httpOnly: true }
+      )
+    } else {
+      res.clearCookie("jwt", 
+        { httpOnly: true, secure: true }
+      )
+    }
+      return res.redirect("/");
+    }
+  catch (error) {
+    throw new Error('Could not be logged out')
+  }
+}
+
   /* ****************************************
 *  Process Edit Account Request
 * *************************************** */
@@ -192,6 +230,46 @@ async function editAccountInfo(req, res) {
   }
 }
 
+  /* ****************************************
+*  Change Password
+* *************************************** */
+async function changePassword(req, res) {
+  let nav = await utilities.getNav()
+  const { account_password, account_id } = req.body
+
+  // Hash the password before storing
+  let hashedPassword
+  try {
+  // regular password and cost (salt is generated automatically)
+  hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+  req.flash("notice", 'Sorry, there was an error changing the password.')
+  res.status(500).render("account/edit-account", {
+    title: "Edit Account Information",
+    nav,
+    errors: null,
+  })
+}
+
+  const regResult = await accountModel.changePassword(
+    hashedPassword, account_id
+  )
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Your password was successfully changed!`
+    )
+    return res.redirect("/account/");
+
+  } else {
+    req.flash("notice", "Sorry, your password could not be changed.")
+    res.status(501).render("account/edit-account", {
+      title: "Edit Account Information",
+      nav,
+    })
+  }
+}
 
   
-  module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildManagement, buildEditAccount, editAccountInfo }
+  module.exports = { buildLogin, buildRegistration, registerAccount, accountLogin, buildManagement, buildEditAccount, editAccountInfo, changePassword, accountLogout, buildLogout }
