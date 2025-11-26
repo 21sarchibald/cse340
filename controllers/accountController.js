@@ -210,7 +210,7 @@ async function editAccountInfo(req, res) {
       if(process.env.NODE_ENV === 'development') {
         res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
       } else {
-        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, sameSite: "none", maxAge: 3600 * 1000 })
       }
 
 
@@ -226,6 +226,11 @@ async function editAccountInfo(req, res) {
     res.status(501).render("/account/edit-account", {
       title: "Edit Account Info",
       nav,
+      errors: null,
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_id
     })
   }
 }
