@@ -1,3 +1,4 @@
+const { getAccountById } = require("../models/account-model")
 const invModel = require("../models/inventory-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
@@ -62,8 +63,19 @@ Util.buildClassificationGrid = async function(data){
 /* **************************************
 * Build the detail view HTML
 * ************************************ */
-Util.buildDetailView = async function(data){
-  product = data[0];
+Util.buildDetailView = async function(detailData, reviewData){
+  product = detailData[0];
+  reviews = reviewData;
+  const reviewTable = reviews.map(review => {
+    const userFirstInitial = getAccountById(review.account_id)[1];
+    const userLastName = getAccountById(review.account_id)[2]
+
+    `<tr>
+      <td><h4>${userFirstInitial}.${userLastName}</h4></td>
+      <td class="review-date"><p>${review.review_date}</p></td>
+      <td><p>${review.review_text}</p></td>
+    </tr>`
+  });
 
     let view
       view = `
@@ -79,6 +91,21 @@ Util.buildDetailView = async function(data){
           <p id="product-description">${product.inv_description}</p>
           <h3>Color: ${product.inv_color}</h3>
           <h3>Miles: ${new Intl.NumberFormat('en-US').format(product.inv_miles)}</h3>
+        </div>
+        <div id="product-detail-reviews">
+          <h2>Reviews</h2>
+          <table id="detail-reviews-table">
+            <tr>
+            <td><h4>J.Dough</h4></td>
+            <td class="review-date"><p>Date</p></td>
+            <td><p>Review text</p></td>
+            </tr>
+            <tr>
+            <td><h4>J.Dough</h4></td>
+            <td class="review-date"><p>Date</p></td>
+            <td><p>Review text</p></td>
+            </tr>
+          </table>
         </div>
       </div>
       `

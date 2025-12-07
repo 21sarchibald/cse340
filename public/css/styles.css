@@ -167,6 +167,27 @@ nav ul a {
   padding-left: 10px;
 }
 
+#product-detail-reviews {
+
+}
+
+#detail-reviews-table {
+  display: table;
+  margin-left: 10px;
+  /* border: solid 1px grey; */
+  border-collapse: collapse;
+}
+
+#detail-reviews-table td {
+  border-bottom: solid 1px grey;
+  border-collapse: collapse;
+  padding: 5px 10px;
+}
+
+.review-date {
+  color: grey;
+}
+
 /* Login Screen  */
 
 .form {

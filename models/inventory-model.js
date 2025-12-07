@@ -42,6 +42,23 @@ async function getDetailsByProductId(vehicle_id) {
   }
 }
 
+/* ***************************
+ *  Get product reviews from review table
+ * ************************** */
+
+async function getReviewsByProductId(vehicle_id) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.review
+      WHERE inv_id = $1`,
+      [vehicle_id]
+    )
+    return data.rows
+  } catch (error) {
+    console.error("getReviewsByVehicleId error " + error)
+  }
+}
+
 /* *****************************
 *   Add New Classification
 * *************************** */
@@ -109,4 +126,4 @@ async function deleteInventory(inv_id) {
 }
 
 
-module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByProductId, addClassification, checkExistingClassification, addInventory, editInventory, deleteInventory };
+module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByProductId, getReviewsByProductId, addClassification, checkExistingClassification, addInventory, editInventory, deleteInventory };
