@@ -64,20 +64,25 @@ Util.buildClassificationGrid = async function(data){
 * Build the detail view HTML
 * ************************************ */
 Util.buildDetailView = async function(detailData, reviewData){
-  product = detailData[0];
-  reviews = reviewData;
-  const reviewTable = reviews.map(review => {
-    const userFirstInitial = getAccountById(review.account_id)[1];
-    const userLastName = getAccountById(review.account_id)[2]
-
-    `<tr>
+  const product = detailData[0];
+  const reviews = reviewData;
+  const reviewRows = await Promise.all(
+    reviews.map(async review => {
+    const account = await getAccountById(review.account_id);
+    console.log(account);
+    const userFirstInitial = account.account_firstname[0];
+    const userLastName = account.account_lastname;
+    return `
+    <tr>
       <td><h4>${userFirstInitial}.${userLastName}</h4></td>
-      <td class="review-date"><p>${review.review_date}</p></td>
       <td><p>${review.review_text}</p></td>
-    </tr>`
-  });
+    </tr>`;
+  })
+);
 
-    let view
+const reviewTable = reviewRows.join('');
+
+let view
       view = `
       <h1 id="product-detail-header">
           ${product.inv_year} ${product.inv_make} ${product.inv_model}
@@ -96,21 +101,14 @@ Util.buildDetailView = async function(detailData, reviewData){
           <h2>Reviews</h2>
           <table id="detail-reviews-table">
             <tr>
-            <td><h4>J.Dough</h4></td>
-            <td class="review-date"><p>Date</p></td>
-            <td><p>Review text</p></td>
             </tr>
-            <tr>
-            <td><h4>J.Dough</h4></td>
-            <td class="review-date"><p>Date</p></td>
-            <td><p>Review text</p></td>
-            </tr>
+            ${reviewTable}
           </table>
         </div>
       </div>
       `
     return view
-  }
+}
 
 Util.buildClassificationList = async function (classification_id = null) {
   let data = await invModel.getClassifications()
