@@ -122,8 +122,25 @@ async function deleteInventory(inv_id) {
     console.error("deletion error: " + error);
     new Error("Delete Inventory Error")
     return error.message
+  }``
+}
+
+/* *****************************
+*   Add Review
+* *************************** */
+async function addReview(inv_id, account_id, review_text) {
+  try {
+    console.log("Add review function reacted");
+    const sql = "INSERT INTO review (review_text, review_date, inv_id, account_id) VALUES ($1, NOW(), $2, $3);"
+    const data = await pool.query(sql, [review_text, inv_id, account_id])
+    console.log(data);
+    return data.rowCount;
+  } catch (error) {
+    console.error("add review error: " + error);
+    new Error("Add Review Error Error")
+    return error.message
   }
 }
 
 
-module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByProductId, getReviewsByProductId, addClassification, checkExistingClassification, addInventory, editInventory, deleteInventory };
+module.exports = {getClassifications, getInventoryByClassificationId, getDetailsByProductId, getReviewsByProductId, addClassification, checkExistingClassification, addInventory, editInventory, deleteInventory, addReview };``

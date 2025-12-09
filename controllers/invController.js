@@ -315,4 +315,47 @@ invCont.deleteInventory = async function (req, res, next) {
   }
 }
 
+/* ****************************************
+*  Process Add Review
+* *************************************** */
+invCont.addReview = async function (req, res, next) {
+  console.log("Add Review function works");
+  let nav = await utilities.getNav()
+  const { inv_id, account_id, review_text } = req.body
+  
+  const addResult = await invModel.addReview(inv_id, account_id, review_text);
+  
+  if (addResult) {
+    req.flash(
+      "notice",
+      `Review successfully added.`
+    )
+    nav = await utilities.getNav();
+    // Navigate back to the management view.
+    res.redirect("/inv/management");
+  } else {
+    console.log("Add review function failed.")
+    // const classificationList = await utilities.buildClassificationList(classification_id);
+    // req.flash("notice", `Sorry, the edit failed.`)
+    // const inventoryName = `${inv_make} ${inv_model}`;
+    // res.status(501).render("./inventory/edit-inventory", {
+    //   title: "Edit " + inventoryName,
+    //   nav,
+    //   classificationList,
+    //   errors: null,
+    //   classification_id,
+    //   inv_id,
+    //   inv_make,
+    //   inv_model,
+    //   inv_year,
+    //   inv_description, 
+    //   inv_image, 
+    //   inv_thumbnail, 
+    //   inv_price, 
+    //   inv_miles, 
+    //   inv_color
+    // })
+  }
+}
+
 module.exports = invCont

@@ -71,4 +71,9 @@ router.post(
     invValidate.checkInventoryData,
     utilities.handleErrors(invController.addInventory))
 
+// Route to add new review
+router.post(
+    "/add-review",
+    utilities.handleErrors(invController.addReview))
+
 module.exports = router;

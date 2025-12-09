@@ -191,6 +191,10 @@ grid-column: 1/3;
   color: grey;
 }
 
+#review-tools {
+  grid-column: 1/3;
+}
+
 /* Login Screen  */
 
 .form {
