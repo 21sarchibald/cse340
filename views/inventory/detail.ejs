@@ -10,7 +10,7 @@ To display a message, replace the "#" symbol  with this the
 
 <div id="review-tools">
     <% if (locals.loggedin) { %>
-        <form action="/inv/add-review" method="post" class="form" id="addReviewForm">
+        <form action="/review/add-review" method="post" class="form" id="addReviewForm">
             <div class="form-inputs">
                 <p>Add Review as <%= locals.accountData.account_firstname[0] %>.<%= locals.accountData.account_lastname %></p>
                 <label for="review_text">Review:</label>
