@@ -25,7 +25,8 @@ invCont.buildByClassificationId = async function (req, res, next) {
  * ************************** */
 invCont.buildByVehicleId = async function (req, res, next) {
   console.log("build function reacted");
-  const vehicleId = req.params.vehicleId
+  const vehicleId = req.params.vehicleId;
+  const accountId = res.locals.accountData.account_id;
   const detailData = await invModel.getDetailsByProductId(vehicleId);
   const reviewData = await invModel.getReviewsByProductId(vehicleId);
   const view = await utilities.buildDetailView(detailData, reviewData);
@@ -36,6 +37,8 @@ invCont.buildByVehicleId = async function (req, res, next) {
     nav,
     view,
     errors: null,
+    account_id: accountId,
+    inv_id: vehicleId,
   })
 }
 
