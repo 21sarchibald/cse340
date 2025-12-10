@@ -50,7 +50,8 @@ async function getReviewsByProductId(vehicle_id) {
   try {
     const data = await pool.query(
       `SELECT * FROM public.review
-      WHERE inv_id = $1`,
+      WHERE inv_id = $1
+      ORDER BY review_date DESC`,
       [vehicle_id]
     )
     return data.rows
