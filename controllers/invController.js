@@ -335,7 +335,7 @@ invCont.addReview = async function (req, res, next) {
     )
     nav = await utilities.getNav();
     // Navigate back to the management view.
-    res.redirect("/inv/management");
+    res.redirect(`/inv/detail/${inv_id}`);
   } else {
     console.log("Add review function failed.")
     // const classificationList = await utilities.buildClassificationList(classification_id);
