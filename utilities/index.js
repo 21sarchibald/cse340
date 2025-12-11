@@ -129,6 +129,29 @@ Util.buildClassificationList = async function (classification_id = null) {
   return classificationList
 }
 
+Util.buildUserReviewsTable = async function (user_reviews = []) {
+  if (user_reviews.length < 1) {
+    return;
+  }
+  console.log("User reviews", user_reviews);
+  // const tableRows = [];
+
+  const tableRows = await Promise.all(
+    user_reviews.map(async review => {
+      return `
+      <tr>
+        <td><p>${review.review_text}</p></td>
+        <td><a href='/review/edit-review/${review.review_id}' title='Click to update'>Modify</a></td> 
+        <td><a href='/review/delete-review/${review.review_id}' title='Click to delete'>Delete</a></td> 
+      </tr>
+      `
+    })
+  )
+
+  const userReviewsTable = tableRows.join('');
+  return userReviewsTable;
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
@@ -140,6 +163,11 @@ Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)
 * Middleware to check token validity
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
+    // Skip static files completely
+    if (req.originalUrl.match(/\.(css|js|png|jpg|jpeg|svg|gif|ico)$/)) {
+      return next()
+    }
+
   if (req.cookies.jwt) {
    jwt.verify(
     req.cookies.jwt,

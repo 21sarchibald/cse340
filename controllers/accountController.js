@@ -1,4 +1,5 @@
 const accountModel = require("../models/account-model")
+const reviewModel = require("../models/review-model")
 const utilities = require("../utilities/")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
@@ -49,10 +50,17 @@ async function buildRegistration(req, res, next) {
 async function buildManagement (req, res, next) {
   console.log("build function reacted");
   let nav = await utilities.getNav();
+  const userId = res.locals.accountData.account_id
+  console.log(userId);
+  const userReviews = await reviewModel.getReviewsByUserId(userId);
+  console.log("User Reviews in build management function", userReviews);
+  const userReviewsTable = await utilities.buildUserReviewsTable(userReviews);
+  console.log(userReviewsTable);
   res.render("account/management", {
     title: "Account Management",
     nav,
     errors: null,
+    userReviewsTable: userReviewsTable
   })
 }
 

@@ -19,6 +19,24 @@ async function addReview(inv_id, account_id, review_text) {
   }
 
 /* ***************************
+ *  Get product reviews from review table
+ * ************************** */
+
+async function getReviewsByProductId(vehicle_id) {
+    try {
+      const data = await pool.query(
+        `SELECT * FROM public.review
+        WHERE inv_id = $1
+        ORDER BY review_date DESC`,
+        [vehicle_id]
+      )
+      return data.rows
+    } catch (error) {
+      console.error("getReviewsByVehicleId error " + error)
+    }
+  }
+
+/* ***************************
  *  Get product reviews by user
  * ************************** */
 
@@ -36,4 +54,4 @@ async function getReviewsByUserId(account_id) {
     }
   }
 
-module.exports = { addReview, getReviewsByUserId, };
+module.exports = { addReview, getReviewsByProductId, getReviewsByUserId, };
