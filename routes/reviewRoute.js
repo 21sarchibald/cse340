@@ -9,11 +9,19 @@ router.post(
     "/add-review",
     utilities.handleErrors(reviewController.addReview))
 
+// Route to build edit review page
+router.get(
+    "/edit-review/:reviewId",
+    utilities.handleErrors(reviewController.buildEditReviewPage))
+
 // Route to edit review
+router.post(
+    "/edit-review",
+    utilities.handleErrors(reviewController.editReview))
 
 // Route to delete review
 router.post(
-    "/delete-review",
+    "/delete-review/:reviewId",
     utilities.handleErrors(reviewController.deleteReview))
 
 module.exports = router;

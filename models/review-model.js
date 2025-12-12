@@ -13,7 +13,7 @@ async function addReview(inv_id, account_id, review_text) {
       return data.rowCount;
     } catch (error) {
       console.error("add review error: " + error);
-      new Error("Add Review Error Error")
+      new Error("Add Review Error")
       return error.message
     }
   }
@@ -54,4 +54,40 @@ async function getReviewsByUserId(account_id) {
     }
   }
 
-module.exports = { addReview, getReviewsByProductId, getReviewsByUserId, };
+/* ***************************
+ *  Get product reviews by user
+ * ************************** */
+
+async function getReviewById(review_id) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.review
+      WHERE review_id = $1`,
+      [review_id]
+    )
+    console.log("Review by review id data: ", review_id);
+    console.log(data.rows[0]);
+    return data.rows[0];
+  } catch (error) {
+    console.error("getReviewsByAccountId error " + error)
+  }
+}
+  
+  /* *****************************
+*   Edit Review
+* *************************** */
+async function editReview(review_id, review_text) {
+  try {
+    console.log("Edit review function reacted");
+    const sql = "UPDATE review SET review_text = $1 WHERE review_id = $2;";
+    const data = await pool.query(sql, [review_text, review_id]);
+    console.log(data);
+    return data.rowCount;
+  } catch (error) {
+    console.error("edit review error: " + error);
+    new Error("Edit Review Error")
+    return error.message
+  }
+}
+
+module.exports = { addReview, getReviewsByProductId, getReviewsByUserId, getReviewById, editReview };
