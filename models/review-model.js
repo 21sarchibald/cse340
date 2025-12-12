@@ -72,8 +72,8 @@ async function getReviewById(review_id) {
     console.error("getReviewsByAccountId error " + error)
   }
 }
-  
-  /* *****************************
+
+/* *****************************
 *   Edit Review
 * *************************** */
 async function editReview(review_id, review_text) {
@@ -90,4 +90,21 @@ async function editReview(review_id, review_text) {
   }
 }
 
-module.exports = { addReview, getReviewsByProductId, getReviewsByUserId, getReviewById, editReview };
+/* *****************************
+*   Delete Review
+* *************************** */
+async function deleteReview(review_id) {
+try {
+  console.log("Delete review function reacted");
+  const sql = "DELETE FROM review WHERE review_id = $1;";
+  const data = await pool.query(sql, [review_id]);
+  console.log(data);
+  return data;
+} catch (error) {
+  console.error("Delete review error: " + error);
+  new Error("Delete Review Error")
+  return error.message
+}
+}
+
+module.exports = { addReview, getReviewsByProductId, getReviewsByUserId, getReviewById, editReview, deleteReview };

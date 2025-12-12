@@ -19,9 +19,14 @@ router.post(
     "/edit-review",
     utilities.handleErrors(reviewController.editReview))
 
+// Route to build delete review page
+router.get(
+    "/delete-review/:reviewId",
+    utilities.handleErrors(reviewController.buildDeleteReviewPage))
+
 // Route to delete review
 router.post(
-    "/delete-review/:reviewId",
+    "/delete-review",
     utilities.handleErrors(reviewController.deleteReview))
 
 module.exports = router;
