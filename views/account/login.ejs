@@ -13,9 +13,9 @@
 <form class="form" id="login-form" action="/account/login" method="post">
     <div class="form-inputs">
         <label for="account_email">Email:</label>
-        <input name="account_email" type="email" id="accountEmail" required placeholder="Please enter a valid email address." value="<%= locals.account_email %>">
+        <input name="account_email" type="email" id="account_email" required placeholder="Please enter a valid email address." value="<%= locals.account_email %>">
         <label for="account_password">Password:</label>
-        <input name="account_password" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+        <input id="account_password" name="account_password" type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
         <div>Passwords must be at least 12 characters, one must be a number, one must be a lowercase letter, one must be a capital letter, and one must be a non-alphanumeric character.</div>
     </div>
     <button type="submit">LOGIN</button>

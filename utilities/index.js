@@ -99,9 +99,7 @@ let view
         </div>
         <div id="product-detail-reviews">
           <h2>Reviews</h2>
-          <table id="detail-reviews-table">
-            <tr>
-            </tr>
+          <table id="detail-reviews-table"> 
             ${reviewTable}
           </table>
         </div>
