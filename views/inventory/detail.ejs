@@ -22,7 +22,7 @@ To display a message, replace the "#" symbol  with this the
             <div class="form-inputs">
                 <p>Add Review as <%= locals.accountData.account_firstname[0] %>.<%= locals.accountData.account_lastname %></p>
                 <label for="review_text">Review:</label>
-                <input type="text" name="review_text" id="reviewTextInput" type="text" required value="<%= locals.review_text %>">
+                <input type="text" name="review_text" id="review_text" type="text" required value="<%= locals.review_text %>">
         </div>
             <button type="submit" name="submit">Submit Review</button>
             <input type="hidden" name="account_id"
