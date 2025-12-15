@@ -14,10 +14,10 @@ reviewCont.addReview = async function (req, res, next) {
     const addResult = await reviewModel.addReview(inv_id, account_id, review_text);
     
     if (addResult) {
-      req.flash(
-        "notice",
-        `Review successfully added.`
-      )
+      // req.flash(
+      //   "notice",
+      //   `Review successfully added.`
+      // )
       nav = await utilities.getNav();
       // Navigate back to the management view.
       res.redirect(`/inv/detail/${inv_id}`);

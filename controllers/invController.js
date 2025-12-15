@@ -173,7 +173,8 @@ invCont.buildEditInventory = async function (req, res, next) {
   console.log("build function reacted");
   const inventory_id = parseInt(req.params.inv_id);
   let nav = await utilities.getNav();
-  let inventoryData = await invModel.getDetailsByProductId(inventory_id);
+  let inventoryDataResponse = await invModel.getDetailsByProductId(inventory_id);
+  let inventoryData = inventoryDataResponse[0];
   console.log(inventoryData);
   let classificationList = await utilities.buildClassificationList(inventoryData.classification_id);
   const inventoryName = `${inventoryData.inv_make} ${inventoryData.inv_model}`;
@@ -258,7 +259,8 @@ invCont.buildDeleteInventory = async function (req, res, next) {
   console.log("build function reacted");
   const inventory_id = parseInt(req.params.inv_id);
   let nav = await utilities.getNav();
-  let inventoryData = await invModel.getDetailsByProductId(inventory_id);
+  let inventoryDataResponse = await invModel.getDetailsByProductId(inventory_id);
+  let inventoryData = inventoryDataResponse[0];
   console.log(inventoryData);
   // let classificationList = await utilities.buildClassificationList(inventoryData.classification_id);
   const inventoryName = `${inventoryData.inv_make} ${inventoryData.inv_model}`;

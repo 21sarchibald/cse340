@@ -88,7 +88,7 @@ let view
           ${product.inv_year} ${product.inv_make} ${product.inv_model}
       </h1>
       <div id="product-detail-grid">
-        <img src="${product.inv_image}" id="product-detail-img">
+        <img src="${product.inv_image}" alt="Image of ${product.inv_year} ${product.inv_make} ${product.inv_model}" id="product-detail-img">
         <div id="product-detail-details">
           <h2>${product.inv_make} ${product.inv_model} Details</h2>
           <h3>Price: $${new Intl.NumberFormat('en-US').format(product.inv_price)}</h3>

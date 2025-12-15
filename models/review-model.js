@@ -81,8 +81,7 @@ async function editReview(review_id, review_text) {
     console.log("Edit review function reacted");
     const sql = "UPDATE review SET review_text = $1 WHERE review_id = $2;";
     const data = await pool.query(sql, [review_text, review_id]);
-    console.log(data);
-    return data.rowCount;
+    return data;
   } catch (error) {
     console.error("edit review error: " + error);
     new Error("Edit Review Error")
