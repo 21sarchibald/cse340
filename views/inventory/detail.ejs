@@ -5,6 +5,14 @@ To display a message, replace the "#" symbol  with this the
 "unescaped mark" (-) -->
 <%- messages() %>
 
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
 <!-- Displays content -->
 <%- view %>
 

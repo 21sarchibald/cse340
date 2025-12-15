@@ -2,11 +2,14 @@
 const express = require("express")
 const router = new express.Router() 
 const reviewController = require("../controllers/reviewController")
+const reviewValidate = require("../utilities/review-validation")
 const utilities = require("../utilities")
 
 // Route to add new review
 router.post(
     "/add-review",
+    reviewValidate.reviewRules(),
+    reviewValidate.checkAddReview,
     utilities.handleErrors(reviewController.addReview))
 
 // Route to build edit review page
@@ -17,6 +20,8 @@ router.get(
 // Route to edit review
 router.post(
     "/edit-review",
+    reviewValidate.reviewRules(),
+    reviewValidate.checkEditReview,
     utilities.handleErrors(reviewController.editReview))
 
 // Route to build delete review page
