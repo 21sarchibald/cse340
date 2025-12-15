@@ -129,6 +129,10 @@ Util.buildClassificationList = async function (classification_id = null) {
   return classificationList
 }
 
+/* **************************************
+* Build the user reviews table
+* ************************************ */
+
 Util.buildUserReviewsTable = async function (user_reviews = []) {
   if (user_reviews.length < 1) {
     return;
@@ -138,8 +142,16 @@ Util.buildUserReviewsTable = async function (user_reviews = []) {
 
   const tableRows = await Promise.all(
     user_reviews.map(async review => {
+
+      const carDataResponse = await invModel.getDetailsByProductId(review.inv_id);
+      const carData = await carDataResponse[0];
+      let carYear = await carData.inv_year;
+      let carMake = await carData.inv_make;
+      let carModel = await carData.inv_model;
+
       return `
       <tr>
+        <td><a href='/inv/detail/${review.inv_id}' title='Show car'>${carYear} ${carMake} ${carModel}</a></td> 
         <td><p>${review.review_text}</p></td>
         <td><a href='/review/edit-review/${review.review_id}' title='Click to update'>Modify</a></td> 
         <td><a href='/review/delete-review/${review.review_id}' title='Click to delete'>Delete</a></td> 
@@ -147,8 +159,13 @@ Util.buildUserReviewsTable = async function (user_reviews = []) {
       `
     })
   )
-
-  const userReviewsTable = tableRows.join('');
+  let userReviewsTable = `<tr>
+      <th>Car</th>
+      <th>Review Text</th>
+      <th>Modify</th>
+      <th>Delete</th>
+    </tr>`
+  userReviewsTable += tableRows.join('');
   return userReviewsTable;
 }
 
